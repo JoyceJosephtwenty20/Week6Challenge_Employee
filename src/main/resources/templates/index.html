@@ -1,10 +1,304 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th=”www.thymeleaf.org”>
+<!DOCTYPE HTML>
+
+<html lang="en" xmlns:th=”www.thymeleaf.org”
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title> Department List </title>
+    <title>Untitled</title>
+    <meta charset="utf-8"/>
+
+    <div th:replace="base :: headerfg"></div>
+
+
 </head>
-<body>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <!-- Header -->
+    <header id="header" class="alt">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="http://10.0.0.71:8080/webDave/WebSite/images/logo.png" height="200" width="200"/>
+
+            </a>
+        </div>
+
+        <!-- Nav -->
+
+        <nav id="nav">
+            <ul>
+                <li class="current"><a href="index.html">Home</a></li>
+                <li>
+                    <a>Service</a>
+                    <ul>
+                        <li>
+                            <a href="#"> Wireless </a>
+                            <ul>
+                                <li><a href="#"> WiFi </a></li>
+                                <li><a href="#"> Point to Point </a></li>
+                                <li><a href="#">Option Three</a></li>
+                                <li><a href="#">Option Four</a></li>
+                            </ul>
+                        <li>
+                            <a href="#"> On Site Support </a>
+                            <ul>
+                                <li><a href="#"> MGMT </a></li>
+                                <li><a href="#"> Point to Point </a></li>
+                                <li><a href="#">Option Three</a></li>
+                                <li><a href="#">Option Four</a></li>
+                            </ul>
+                        <li><a href="#">Option One</a></li>
+                        <li><a href="#">Option Two</a></li>
+                        <li><a href="#">Option Three</a></li>
+
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="generic.html">Generic</a></li>
+                <li><a th:href="@{elements}">Elements</a></li>
+                <li><a href="https://calendly.com/syconbittechnetwork/30min?month=2020-08">Schedule</a></li>
+                <li><a href="elements.html">About</a></li>
+                <li>
+                    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/login}">Login</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/logout}">Logout</a>
+                </li>
+                <li><a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/employee}"> Profile </a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Nav -- END ---->
+
+    <!-- Banner -->
+
+    <section id="banner">
+        <div class="content primary">
+            <header>
+                <h1> SyconBitTechNetwork <br/>
+                    Business & Residential Technology Service </h1>
+                <p> Maryland, United States </p>
+            </header>
+            <ul class="actions special">
+                <li><a href="https://calendly.com/syconbittechnetwork/30min?month=2020-08"
+                       class="button large wide scrolly">Schedule a Consulting </a></li>
+            </ul>
+        </div>
+        <div class="content secondary">
+            <div class="inner">
+                <div class="features">
+                    <section>
+                        <span class="icon fa-gem major"></span>
+                        <h3> We Care </h3>
+                        <p> Conifgure and deploy Servers and Applications </p>
+                    </section>
+                    <section>
+                        <span class="icon fa-gem major"></span>
+                        <h3> We Listen </h3>
+                        <p> Conifgure and deploy Servers and Applications </p>
+                    </section>
+                    <section>
+                        <span class="icon solid fa-chart-line major"></span>
+                        <h3> We Find Solutions </h3>
+                        <p> Conifgure and deploy Servers and Applications </p>
+                    </section>
+                    <section>
+                        <span class="icon solid fa-camera-retro major"></span>
+                        <h3> We Deliver </h3>
+                        <p> Conifgure and deploy Servers and Applications </p>
+                    </section>
+                </div>
+            </div>
+        </div>
+        <video src="http://10.0.0.71:8080/webDave/WebSite/images/banner.mp4" muted autoplay loop playsinline></video>
+    </section>
+
+    <!-- Section -->
+    <section id="one" class="main">
+        <header class="accent1">
+            <h2>Our Service </h2>
+            <p> We care. We listen. We find solutions. We deliver. </p>
+        </header>
+        <ul class="tabs">
+            <li>
+                <h3> Network Service </h3>
+                <div class="spotlight">
+                    <ul>
+                        <li>
+                            <h4> Cabling Service </h4>
+                            <p> Run cables </p>
+                        </li>
+                        <li>
+                            <h4> Wireless Network </h4>
+                            <p> Deploy Wireless Solution </p>
+                        </li>
+                    </ul>
+                    <span class="image"><img src="http://10.0.0.71:8080/webDave/WebSite/images/picnet1.jpg"
+                                             alt=""/></span>
+                    <ul>
+                        <li>
+                            <h4> Server Reployment </h4>
+                            <p> Conifgure and deploy Servers and Applications </p>
+                        </li>
+                        <li>
+                            <h4> Backup </h4>
+                            <p> Create a backup solution </p>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <h3> Security Auditing </h3>
+                <div class="spotlight">
+                    <ul>
+                        <li>
+                            <h4>Erat aliquam</h4>
+                            <p>Praesent dapibus, neque id cursus fauci quam erat volutpat nam dui mitin.</p>
+                        </li>
+                        <li>
+                            <h4>Neque veroeros</h4>
+                            <p>Sed adipiscing ornare risus. Morbi lorem lentesque egestas sem consequat.</p>
+                        </li>
+                    </ul>
+                    <span class="image"><img src="http://10.0.0.71:8080/webDave/WebSite/images/picsec1.jpg"
+                                             alt=""/></span>
+                    <ul>
+                        <li>
+                            <h4>Quis portitor</h4>
+                            <p>Donec nec justo eget felis facilisis ferme Aenean dignissim pellen.</p>
+                        </li>
+                        <li>
+
+                            <h4> Testing </h4>
+                            <p>Lorem in sem quis dui placerat ornare tra sed etiam veroeros consequat.</p>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <h3> VoIP and Cloud Solution </h3>
+                <div class="spotlight">
+                    <ul>
+                        <li>
+                            <h4>Neque veroeros</h4>
+                            <p>Sed adipiscing ornare risus. Morbi lorem lentesque egestas sem consequat.</p>
+                        </li>
+                        <li>
+                            <h4>Quis portitor</h4>
+                            <p>Donec nec justo eget felis facilisis ferme Aenean dignissim pellen.</p>
+                        </li>
+                    </ul>
+                    <span class="image"><img src="http://10.0.0.71:8080/webDave/WebSite/images/picvoip1.jpg"
+                                             alt=""/></span>
+                    <ul>
+                        <li>
+                            <h4>Magna accumsan</h4>
+                            <p>Lorem in sem quis dui placerat ornare tra sed etiam veroeros consequat.</p>
+                        </li>
+                        <li>
+                            <h4>Erat aliquam</h4>
+                            <p>Praesent dapibus, neque id cursus fauci quam erat volutpat nam dui mitin.</p>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Section -->
+    <section id="two" class="main accent2">
+        <header>
+            <h2>Etiam sed faucibus consequat</h2>
+            <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue eu vulpu magna erat. Aliquam erat
+                volutpat. Nam dui mi tincidunt magna accumsan.</p>
+        </header>
+        <div class="inner">
+            <span class="image main"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic04.jpg" alt=""/></span>
+        </div>
+    </section>
+
+    <!-- Section -->
+    <section id="three" class="main alt">
+        <header>
+            <h2>Auctor nam sed aliquam</h2>
+            <p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue eu vulpu magna erat. Aliquam erat
+                volutpat. Nam dui mi tincidunt magna accumsan.</p>
+        </header>
+        <div class="inner">
+            <div class="posts">
+                <div>
+                    <article>
+                        <a href="#" class="image"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic05.jpg"
+                                                       alt=""/></a>
+                        <div class="content">
+                            <h3>Blandit aliquam</h3>
+                            <p>Feugiat ultrices sed nibh. Quisque a lectus. Donec consectetuer ligula vulputate sem
+                                tristique cursus. Lorem nulla sed gravida non magna.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article>
+                        <div class="content">
+                            <h3>Amet euismod</h3>
+                            <p>Sed ligula vulputate et amet tristique cursus. Lorem nulla sed gravida non magna sed
+                                feugiat consequat.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+                <div>
+                    <article>
+                        <div class="content">
+                            <h3>Sed amet feugiat</h3>
+                            <p>Phasellus ultrices sed nulla quis nibh. Quisque a lectus. Donec consectetuer ligula
+                                vulputate sem tristique cursus. Lorem nulla sed gravida non.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </div>
+                    </article>
+                    <article>
+                        <a href="#" class="image"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic06.jpg"
+                                                       alt=""/></a>
+                        <div class="content">
+                            <h3>Gravida veroeros</h3>
+                            <p>Phasellus ultrices sed nulla quis nibh. Quisque a lectus. Donec consectetuer ligula
+                                vulputate sem tristique cursus. Lorem nulla sed gravida non.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+                <div>
+                    <article>
+                        <a href="#" class="image"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic07.jpg"
+                                                       alt=""/></a>
+                        <div class="content">
+                            <h3>Ipsum volutpat</h3>
+                            <p>Donec consectetuer ligula vulputate sem tristique cursus. Lorem nulla sed gravida non.
+                                Phasellus et ultricesnulla quis nibh. Quisque amet lorem lectus. Magna consectetuer
+                                ligula vulputate sem tristique cursus magna.</p>
+                            <ul class="actions">
+                                <li><a href="#" class="button">More</a></li>
+                            </ul>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div th:replace="base :: footernote"></div>
+
+</div>
+
+<!-- Footer and Scripts -->
+
+<div th:replace="base :: footerfg"></div>
 
 
 </body>

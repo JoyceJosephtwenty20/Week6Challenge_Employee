@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import com.sun.tools.javah.Gen;
+import sun.jvm.hotspot.memory.Generation;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -10,20 +13,27 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name="username")
+    @Column(name = "username")
     private String username;
 
-
-    @Column(name="role")
+    @Column(name = "role")
     private String role;
 
 
-    public Role() {
-    }
+    public Role(){
 
+    }
     public Role(String username, String role) {
         this.username = username;
         this.role = role;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getUsername() {

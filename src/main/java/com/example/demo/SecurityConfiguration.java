@@ -18,16 +18,16 @@ import javax.sql.DataSource;
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
-    protected void configure(HttpSecurity httpSecurity) throws Exception{
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeRequests()
-//                .antMatchers("/h2-console/**").permitAll()
-                .antMatchers("/admin").hasRole("ADMIN")
-                .antMatchers("/Employee").hasAnyRole("ADMIN", "USER")
-                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/home/**").permitAll()
+                .antMatchers("/user").hasAnyRole("ADMIN", "USER")
+                .antMatchers("/register").hasRole("ADMIN")
+//                .antMatchers("/**").hasAnyRole("ADMIN", "USER")
                 .and()
-//                .formLogin()
-//                .loginPage("/login").permitAll()
-//                .and()
+                .formLogin()
+                .loginPage("/login").permitAll()
+                .and()
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout=true").permitAll();
@@ -35,7 +35,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         httpSecurity.csrf().ignoringAntMatchers("/h2-console/**");
         httpSecurity.headers().frameOptions().sameOrigin();
     }
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -45,11 +44,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception{
+    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select employee, password, enable from" + " employee_table where username=?")
-                .groupAuthoritiesByUsername("select username, role from role_table" + " where username=?");
-
+                .usersByUsernameQuery("select username, password, enabled from" + " user_table where username=?")
+                .authoritiesByUsernameQuery("select username, role from role_table" + " where username=?");
     }
 }

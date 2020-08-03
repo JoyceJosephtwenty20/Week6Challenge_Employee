@@ -1,53 +1,90 @@
 package com.example.demo;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 public class HomeController {
 
-    @Autowired
-    EmployeeRepository employeeRepository;
 
     @Autowired
-    DepartmentRepository departmentRepository;
+    EmployeeRepository employeeRepository;
 
     @Autowired
     RoleRepository roleRepository;
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
-        model.addAttribute("employees", new Employees());
+        model.addAttribute("user", new Employee());
         return "register";
     }
-
-    @GetMapping("/registernew")
-    public String processNewEmployee(
-            @Valid @ModelAttribute("employees") Employees employees,
+    @PostMapping("/processregister")
+    public String processRegistrationPage(
+            @Valid @ModelAttribute("user") Employee employee,
             BindingResult result, Model model){
         if(result.hasErrors()){
-            employees.clearPassword();
-            model.addAttribute("employees", employees);
+            employee.clearPassword();
+            model.addAttribute("user", employee);
             return "register";
         }
-        else {
-            model.addAttribute("employees", employees);
-            model.addAttribute("message", "New Employee has been added");
+        else{
+            model.addAttribute("user", employee);
+            model.addAttribute("message", "New user Account Created");
 
-            employees.setEnabled(true);
-            employeeRepository.save(employees);
+            employee.setEnabled(true);
+            employeeRepository.save(employee);
 
-            Role role = new Role(employees.getUsername(), "ROLE_USER");
+            Role role = new Role(employee.getUsername(), "ROLE_USER");
             roleRepository.save(role);
         }
         return "redirect:/";
     }
 
+
+    @RequestMapping("/employee")
+    public String secure (Principal principal, Model model){
+        String username = principal.getName();
+        Employee employee =employeeRepository.findByUsername(username);
+        model.addAttribute("employee", employee);
+        return "employee";
+    }
+
+    @RequestMapping("/home")
+    public String index(){
+        return "index";
+    }
+    @RequestMapping("/elements")
+    public String elements(){
+        return "elements";
+    }
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @PostMapping("/userregistration")
+    public String processUpdateFrom(@Valid Employee employee, BindingResult result){
+        if(result.hasErrors()){
+            return "userregistration";
+        }
+        employeeRepository.save(employee);
+        return "redirect:/";
+    }
+
+    @RequestMapping("/update/{id}")
+    public String updateUser(@PathVariable("id")long id,Model model){
+        model.addAttribute("user", employeeRepository.findById(id).get());
+        return "userregistration";
+    }
+    @RequestMapping("/delete/{id}")
+    public String deleteUser(@PathVariable("id") long id){
+        employeeRepository.deleteById(id);
+        return "redirect:/";
+    }
 }
