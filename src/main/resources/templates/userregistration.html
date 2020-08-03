@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th=”www.thymeleaf.org”>
+<html lang="en" xmlns:th=”www.thymeleaf.org”
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -14,46 +16,20 @@
         <!-- Logo -->
         <div class="logo">
             <a th:href="@{home}">
-                <img src="http://10.0.0.71:8080/webDave/WebSite/images/logo.png" height="200" width="200"/>
+                <img src="http://108.48.50.58:6723/Site/images/logo.png" height="200" width="200"/>
 
             </a>
         </div>
         <!-- Nav -->
         <nav id="nav">
             <ul>
-                <li><a th:href="@{home}"> Home </a></li>
+                <li class="current"><a th:href="@{home}">Home</a></li>
+                <li><a sec:authorize="isAuthenticated()" th:href="@{register}"> Register </a></li>
                 <li>
-                    <a href="#" class="icon solid fa-angle-down">Service</a>
-                    <ul>
-
-                        <li>
-                            <a href="#"> Wireless </a>
-                            <ul>
-                                <li><a href="#"> WiFi Installation & MGMT </a></li>
-                                <li><a href="#"> Point to Point </a></li>
-                                <li><a href="#">Option Three</a></li>
-                                <li><a href="#">Option Four</a></li>
-                            </ul>
-                        <li>
-                            <a href="#"> On Site Support </a>
-                            <ul>
-                                <li><a href="#"> WiFi Installation & MGMT </a></li>
-                                <li><a href="#"> Point to Point </a></li>
-                                <li><a href="#">Option Three</a></li>
-                                <li><a href="#">Option Four</a></li>
-                            </ul>
-                        <li><a href="#">Option One</a></li>
-                        <li><a href="#">Option Two</a></li>
-                        <li><a href="#">Option Three</a></li>
-
-                        </li>
-                    </ul>
+                    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/login}">Login</a>
+                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/logout}">Logout</a>
                 </li>
-                <li><a href="generic.html">Generic</a></li>
-                <li><a th:href="@{elements}">Elements</a></li>
-                <li><a href="https://calendly.com/syconbittechnetwork/30min?month=2020-08">Schedule</a></li>
-                <li><a href="generic.html">Generic</a></li>
-
+                <li class="current"><a th:href="@{employee}"> [[${employee.firstName}]] </a></li>
             </ul>
         </nav>
 
@@ -120,82 +96,6 @@
 
 
 
-                    <h3> Transactions </h3>
-                    <h4>Default</h4>
-                    <div class="table-wrapper">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th> Date </th>
-                                <th> Description </th>
-                                <th> Price </th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>08/20/2020</td>
-                                <td>Ante turpis integer aliquet porttitor.</td>
-                                <td>29.99</td>
-                            </tr>
-                            <tr>
-                                <td>08/20/2020</td>
-                                <td>Vis ac commodo adipiscing arcu aliquet.</td>
-                                <td>19.99</td>
-                            </tr>
-                            <tr>
-                                <td>08/20/2020</td>
-                                <td> Morbi faucibus arcu accumsan lorem.</td>
-                                <td>29.99</td>
-                            </tr>
-
-                            </tbody>
-                            <tfoot>
-                            <tr>
-                                <td colspan="2"></td>
-                                <td>Total</td>
-                            </tr>
-                            </tfoot>
-                        </table>
-                    </div>
-
-                    <h4>Alternate</h4>
-
-
-                </div>
-                <div class="col-6 col-12-medium">
-
-                    <!-- Buttons -->
-
-                    <div class="table-wrapper">
-
-                        <h4> Message </h4>
-                        <p><span class="image left"><img src="images/pic02.jpg" alt="" /></span>Lorem ipsum dolor sit accumsan interdum nisi, quis tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus. Integer ac pellentesque praesent tincidunt felis sagittis eget. tempus euismod. Vestibulum ante ipsum primis in faucibus vestibulum. Blandit adipiscing eu felis iaculis volutpat ac adipiscing accumsan eu faucibus.</p>
-
-
-                    </div>
-
-                    <!-- Image -->
-                    <h3>Image</h3>
-
-                    <h4>Fit</h4>
-                    <span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic04.jpg" alt="" /></span>
-                    <div class="box alt">
-                        <div class="row gtr-50 gtr-uniform">
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic01.jpg" alt="" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic02.jpg" alt="" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic03.jpg" alt="" /></span></div>
-                            <!-- Break -->
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic03.jpg" alt="" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic01.jpg" alt="" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic02.jpg" alt="" /></span></div>
-                            <!-- Break -->
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic02.jpg" alt="" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic03.jpg" alt="" /></span></div>
-                            <div class="col-4"><span class="image fit"><img src="http://10.0.0.71:8080/webDave/WebSite/images/pic01.jpg" alt="" /></span></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
     </div>
@@ -204,10 +104,6 @@
     <div th:replace="base :: footernote"> </div>
 
 </div>
-
-
-<h4> New User Registration </h4>
-
 
 
 </body>

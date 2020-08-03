@@ -18,7 +18,7 @@ public class Employee {
     private long id;
 
     @Column(name="username")
-    @Size(min=3)
+    @Size(min=1)
     private String username;
 
     @Column(name="email")
@@ -51,7 +51,7 @@ public class Employee {
     }
 
 
-    public Employee(@Size(min = 3) String username,
+    public Employee(@Size(min = 1) String username,
                     @NotEmpty @NotNull String email, String password,
                     @NotEmpty @NotNull String phoneNumber,
                     @NotEmpty @NotNull String firstName,

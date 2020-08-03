@@ -14,8 +14,8 @@ public class CommandLineRunnerBean implements CommandLineRunner {
     RoleRepository roleRepository;
 
     public void run(String... args){
-        Employee employee = new Employee("joycekj", "joyce.j106s13@gmail.com", "p@ssword","202-594-7406", "Joyce", "Joseph", true);
-        Role userRole = new Role ("joycekj", "ROLE_USER");
+        Employee employee = new Employee("mc", "mc@domain.com", "mc","111-111-1111", "MAC", "C", true);
+        Role userRole = new Role ("mc", "ROLE_USER");
 
         employeeRepository.save(employee);
         roleRepository.save(userRole);

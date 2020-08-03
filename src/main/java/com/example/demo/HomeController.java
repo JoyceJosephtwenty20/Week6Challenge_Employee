@@ -19,10 +19,15 @@ public class HomeController {
     @Autowired
     RoleRepository roleRepository;
 
+    @RequestMapping("/home")
+    public String index(){
+        return "index";
+    }
+
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
-        model.addAttribute("user", new Employee());
-        return "register";
+        model.addAttribute("employee", new Employee());
+        return "userregistration";
     }
     @PostMapping("/processregister")
     public String processRegistrationPage(
@@ -55,10 +60,7 @@ public class HomeController {
         return "employee";
     }
 
-    @RequestMapping("/home")
-    public String index(){
-        return "index";
-    }
+
     @RequestMapping("/elements")
     public String elements(){
         return "elements";
@@ -76,15 +78,9 @@ public class HomeController {
         employeeRepository.save(employee);
         return "redirect:/";
     }
-
     @RequestMapping("/update/{id}")
     public String updateUser(@PathVariable("id")long id,Model model){
-        model.addAttribute("user", employeeRepository.findById(id).get());
+        model.addAttribute("employee", employeeRepository.findById(id).get());
         return "userregistration";
-    }
-    @RequestMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") long id){
-        employeeRepository.deleteById(id);
-        return "redirect:/";
     }
 }
