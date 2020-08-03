@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import org.aspectj.weaver.bcel.BcelAccessForInlineMunger;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
@@ -17,6 +18,10 @@ public class Employees {
     @Size(min=3)
     private String jobTitle;
 
+    @Column(name="username")
+    @Size(min=3)
+    private String username;
+
     @Column(name="firstname")
     @Size(min=3)
     private String firstName;
@@ -31,26 +36,19 @@ public class Employees {
     @Column(name="enabled")
     private boolean enabled;
 
-    @ManyToMany(mappedBy = "Employees",
-    cascade = CascadeType.REMOVE,
-    fetch = FetchType.EAGER)
-
-    private Set<Department> department;
-
-
     public Employees() {
     }
 
     public Employees(@Size(min = 3) String jobTitle,
+                     @Size(min = 3) String username,
                      @Size(min = 3) String firstName,
-                     @Size(min = 3) String lastName, String password, boolean enabled,
-                     Set<Department> department) {
+                     @Size(min = 3) String lastName, String password, boolean enabled) {
         this.jobTitle = jobTitle;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.setPassword(password);
+        this.password = password;
         this.enabled = enabled;
-        this.department = department;
     }
 
     public long getId() {
@@ -69,12 +67,20 @@ public class Employees {
         this.jobTitle = jobTitle;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String nameName) {
-        this.firstName = nameName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
     public String getLastName() {
@@ -90,8 +96,7 @@ public class Employees {
     }
 
     public void setPassword(String password) {
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        this.password = passwordEncoder.encode(password);
+        this.password = password;
     }
 
     public boolean isEnabled() {
@@ -102,11 +107,7 @@ public class Employees {
         this.enabled = enabled;
     }
 
-    public Set<Department> getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(Set<Department> department) {
-        this.department = department;
+    public void clearPassword() {
+        this.password = "";
     }
 }

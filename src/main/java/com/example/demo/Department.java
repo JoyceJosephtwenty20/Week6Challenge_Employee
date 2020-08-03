@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@Table(name="department_table")
 public class Department {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -12,10 +13,11 @@ public class Department {
 
     private String name;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    private Set<Employees> employees;
-
     public Department() {
+    }
+
+    public Department(String name) {
+        this.name = name;
     }
 
     public long getId() {
@@ -32,13 +34,5 @@ public class Department {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Set<Employees> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employees> employees) {
-        this.employees = employees;
     }
 }
