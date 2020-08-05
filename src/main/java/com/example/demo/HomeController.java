@@ -12,12 +12,14 @@ import java.security.Principal;
 @Controller
 public class HomeController {
 
-
     @Autowired
     EmployeeRepository employeeRepository;
 
     @Autowired
     RoleRepository roleRepository;
+
+    @Autowired
+    DepartmentRepository departmentRepository;
 
     @RequestMapping("/home")
     public String index(){
@@ -26,9 +28,11 @@ public class HomeController {
 
     @GetMapping("/register")
     public String showRegistrationPage(Model model){
+        model.addAttribute("departments", departmentRepository.findAll());
         model.addAttribute("employee", new Employee());
         return "userregistration";
     }
+
     @PostMapping("/processregister")
     public String processRegistrationPage(
             @Valid @ModelAttribute("user") Employee employee,
@@ -44,13 +48,11 @@ public class HomeController {
 
             employee.setEnabled(true);
             employeeRepository.save(employee);
-
             Role role = new Role(employee.getUsername(), "ROLE_USER");
             roleRepository.save(role);
         }
         return "redirect:/";
     }
-
 
     @RequestMapping("/employee")
     public String secure (Principal principal, Model model){
@@ -60,6 +62,23 @@ public class HomeController {
         return "employee";
     }
 
+    @RequestMapping("/")
+    public String showAllDPT(Model model){
+        model.addAttribute("departments", departmentRepository.findAll());
+        return "index";
+    }
+
+    @RequestMapping("/listemployees")
+    private String listDPT(Model model){
+        model.addAttribute("departments", departmentRepository.findAll());
+        return "allemployees";
+    }
+
+    @RequestMapping("/viewemployees/{id}")
+    private String listbyID(@PathVariable("id") long id, Model model){
+        model.addAttribute("employee", employeeRepository.findById(id).get());
+        return "viewemployee";
+    }
 
     @RequestMapping("/elements")
     public String elements(){
@@ -71,16 +90,35 @@ public class HomeController {
     }
 
     @PostMapping("/userregistration")
-    public String processUpdateFrom(@Valid Employee employee, BindingResult result){
+    public String processUpdateFrom(@Valid Employee employee, BindingResult result)
+    {
         if(result.hasErrors()){
             return "userregistration";
         }
+        employee.setEnabled(true);
         employeeRepository.save(employee);
         return "redirect:/";
     }
+
+    @PostMapping("/dptformprocess")
+    public String processDPTForm(@ModelAttribute Department department){
+        departmentRepository.save(department);
+        return "redirect:/";
+    }
+
+
+    @RequestMapping("/departmentform")
+    public String dptForm(Model model){
+        model.addAttribute("department", new Department());
+        return "departmentform";
+    }
+
+
     @RequestMapping("/update/{id}")
     public String updateUser(@PathVariable("id")long id,Model model){
+        model.addAttribute("departments", departmentRepository.findAll());
         model.addAttribute("employee", employeeRepository.findById(id).get());
         return "userregistration";
     }
+
 }

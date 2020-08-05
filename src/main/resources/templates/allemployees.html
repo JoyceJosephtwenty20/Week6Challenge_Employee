@@ -1,0 +1,74 @@
+<html lang="en" xmlns:th=”www.thymeleaf.org”
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <title>Untitled</title>
+    <meta charset="utf-8"/>
+    <div th:replace="base :: headerfg"></div>
+</head>
+<body class="is-preload">
+<!-- Wrapper -->
+<div id="wrapper">
+    <!-- Header -->
+    <header id="header" class="alt">
+        <!-- Logo -->
+        <div class="logo">
+            <a href="index.html">
+                <img src="http://108.48.50.58:6723/Site/images/logo.png" height="200" width="200"/>
+            </a>
+        </div>
+
+        <!-- Nav -->
+
+        <nav id="nav">
+            <ul>
+                <li class="current"><a th:href="@{home}">Home</a></li>
+
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/employee}"> Profile </a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{listemployees}"> View
+                    Employees </a></li>
+                <li sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{register}"> Add New Employee </a>
+                </li>
+                <li sec:authorize="hasRole('ADMIN')"><a class="nav-link" th:href="@{departmentform}"> Add New DPT </a>
+                </li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a></li>
+
+            </ul>
+        </nav>
+    </header>
+</div>
+
+
+<!-- Nav -- END ---->
+
+<section id="one" class="main alt">
+
+    <div class="inner alt">
+
+        <ul th:each="department : ${departments}">
+
+            <h3>[[${department.name}]]</h3>
+
+            <div class="row">
+                <div class="col-6 col-12-small">
+
+                    <ul th:each="employee : ${department.employees}">
+                        <li>
+                            <a th:href="@{/viewemployees/{id} (id=${employee.id})}">
+                                Employee Name: [[${employee.firstName}]]
+                                [[${employee.lastName}]]<br/>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </ul>
+    </div>
+</section>
+
+
+</body>
+
+<div th:replace="base :: footerfg"></div>
+
+</html>

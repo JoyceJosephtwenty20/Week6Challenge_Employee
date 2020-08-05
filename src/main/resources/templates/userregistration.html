@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th=”www.thymeleaf.org”
+<html lang="en" xmlns:th=”http://www.thymeleaf.org”
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
@@ -24,18 +24,21 @@
         <nav id="nav">
             <ul>
                 <li class="current"><a th:href="@{home}">Home</a></li>
-                <li><a sec:authorize="isAuthenticated()" th:href="@{register}"> Register </a></li>
-                <li>
-                    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/login}">Login</a>
-                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/logout}">Logout</a>
-                </li>
-                <li class="current"><a th:href="@{employee}"> [[${employee.firstName}]] </a></li>
+
+                <li sec:authorize="isAuthenticated()" ><a class="nav-link" th:href="@{/employee}"> Profile </a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/listemployees}"> View Employees </a></li>
+                <li sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li sec:authorize="hasRole('ADMIN')"> <a class="nav-link" th:href="@{/register}"> Add New Employee </a></li>
+                <li sec:authorize="hasRole('ADMIN')"> <a class="nav-link"  th:href="@{/departmentform}"> Add New DPT </a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a>  </li>
+
             </ul>
         </nav>
-
     </header>
 
     <!-- Section -->
+
+    <section id="one" class="main alt">
 
     <div class="inner alt">
         <div class="content">
@@ -44,68 +47,73 @@
                 <div class="col-6 col-12-medium">
                     <!-- Form -->
                     <br/>
+
+
                     <h3> Register New User </h3>
                     <form autocomplete="off" th:action="@{/userregistration}" th:object="${employee}" method="post">
+                        <input type="hidden" th:field="*{id}"/>
                         First Name:
                         <input type="text" id="firstName" placeholder="First Name" th:field="*{firstName}"/>
-                        <mark> <strong>
+                        <mark><strong>
                             <span th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"> </span> <br/>
-                        </strong> </mark>
+                        </strong></mark>
                         Last Name:
                         <input type="text" id="lastName" placeholder="Last Name" th:field="*{lastName}"/>
-                        <mark> <strong>
+                        <mark><strong>
         <span th:if="${#fields.hasErrors('lastName')}"
               th:errors="*{lastName}"> </span>
-                        </strong> </mark>  <br/>
+                        </strong></mark>
+                        <br/>
                         Email:
                         <input type="email" id="email" placeholder="email@dmain.com" th:field="*{email}"/>
-                        <mark> <strong>
+                        <mark><strong>
         <span th:if="${#fields.hasErrors('email')}"
               th:errors="*{email}"> </span>
-                        </strong> </mark> <br/>
+                        </strong></mark>
+                        <br/>
 
                         Phone Number:
                         <input type="text" id="phoneNumber" placeholder="000-000-0000" th:field="*{phoneNumber}"/>
-                        <mark> <strong>
+                        <mark><strong>
         <span th:if="${#fields.hasErrors('phoneNumber')}"
               th:errors="*{phoneNumber}"> </span>
-                        </strong> </mark> <br/>
+                        </strong></mark>
+                        <br/>
 
                         Username
                         <input type="text" id="username" placeholder="Username"
                                th:field="*{username}"/>
-                        <mark> <strong>
+                        <mark><strong>
         <span th:if="${#fields.hasErrors('username')}"
               th:errors="*{username}"> </span>
-                        </strong> </mark> <br/>
+                        </strong></mark>
+                        <br/>
                         Password
                         <input type="password" id="password" placeholder="Password"
                                th:field="*{password}"/>
-                        <mark> <strong>
+                        <mark><strong>
         <span th:if="${#fields.hasErrors('password')}"
               th:errors="*{password}"> </span>
-                        </strong> </mark> <br/>
-                        <button type="submit" class="btn btn-default"> Submit </button>
 
+                            Department
+                            <select name="demo-category" id="demo-category">
+                                <option th:each="dept : ${departments}"> [[${dept.name}]]</option>
+                            </select>
+                        </strong></mark>
+                        <br/>
+                        <button type="submit" class="btn btn-default"> Submit</button>
                     </form>
-
-
-                    <hr />
-
-                    <!-- Table -->
-
-
-
-
+                    <hr/>
+                </div>
+            </div>
         </div>
     </div>
+
+
     </section>
 
-    <div th:replace="base :: footernote"> </div>
 
-</div>
-
-
+            <div th:replace="base :: footernote"></div>
 </body>
 
 </html>

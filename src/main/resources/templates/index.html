@@ -5,9 +5,7 @@
 <head>
     <title>Untitled</title>
     <meta charset="utf-8"/>
-
-    <div th:replace="base :: headerfg"></div>
-
+    <div th:replace="base :: headerfg"> </div>
 </head>
 <body class="is-preload">
 <!-- Wrapper -->
@@ -18,7 +16,6 @@
         <div class="logo">
             <a href="index.html">
                 <img src="http://108.48.50.58:6723/Site/images/logo.png" height="200" width="200"/>
-
             </a>
         </div>
 
@@ -27,17 +24,20 @@
         <nav id="nav">
             <ul>
                 <li class="current"><a th:href="@{home}">Home</a></li>
-                <li><a sec:authorize="isAuthenticated()" th:href="@{register}"> Register </a></li>
-                <li>
-                    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/login}">Login</a>
-                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/logout}">Logout</a>
-                </li>
-                <li><a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/employee}"> Profile </a></li>
+
+                <li sec:authorize="isAuthenticated()" ><a class="nav-link" th:href="@{/employee}"> Profile </a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{listemployees}"> View Employees </a></li>
+                <li sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li sec:authorize="hasRole('ADMIN')"> <a class="nav-link" th:href="@{register}"> Add New Employee </a></li>
+                <li sec:authorize="hasRole('ADMIN')"> <a class="nav-link"  th:href="@{departmentform}"> Add New DPT </a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a>  </li>
+
             </ul>
         </nav>
     </header>
 
     <!-- Nav -- END ---->
+
 
     <!-- Banner -->
 
@@ -52,11 +52,13 @@
                 <li><a href="https://calendly.com/syconbittechnetwork/30min?month=2020-08"
                        class="button large wide scrolly">Schedule a Consulting </a></li>
             </ul>
+
         </div>
         <div class="content secondary">
             <div class="inner">
                 <div class="features">
                     <section>
+
                         <span class="icon fa-gem major"></span>
                         <h3> Information Technology </h3>
                         <p> Information Technology Department  </p>
@@ -81,7 +83,6 @@
         </div>
         <video src="http://108.48.50.58:6723/Site/images/banner.mp4"></video>
     </section>
-
 
                 </div>
             </div>

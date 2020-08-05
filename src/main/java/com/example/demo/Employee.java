@@ -6,7 +6,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.ArrayList;
 import java.util.Set;
 
 @Entity
@@ -17,39 +16,41 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Column(name="username")
-    @Size(min=1)
+    @Column(name = "username")
+    @Size(min = 1)
     private String username;
 
-    @Column(name="email")
+    @Column(name = "email")
     @NotEmpty
     @NotNull
     private String email;
 
-    @Column(name="phone")
+    @Column(name = "phone")
     @NotEmpty
     @NotNull
     private String phoneNumber;
 
-    @Column (name="password")
+    @Column(name = "password")
     private String password;
 
-    @Column(name="first_name")
+    @Column(name = "first_name")
     @NotEmpty
     @NotNull
     private String firstName;
 
-    @Column(name="last_name")
+    @Column(name = "last_name")
     @NotEmpty
     @NotNull
     private String lastName;
 
-    @Column(name="enabled")
+    @Column(name = "enabled")
     private boolean enabled;
+
+    @ManyToOne
+    private Department department;
 
     public Employee() {
     }
-
 
     public Employee(@Size(min = 1) String username,
                     @NotEmpty @NotNull String email, String password,
@@ -84,9 +85,11 @@ public class Employee {
     public String getEmail() {
         return email;
     }
+
     public void setEmail(String email) {
         this.email = email;
     }
+
     public String getPhoneNumber() {
         return phoneNumber;
     }
@@ -104,8 +107,7 @@ public class Employee {
         this.password = passwordEncoder.encode(password);
     }
 
-    public String getFirstName()
-    {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -128,7 +130,16 @@ public class Employee {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    public void clearPassword(){
-        this.password="";
+
+    public void clearPassword() {
+        this.password = "";
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 }

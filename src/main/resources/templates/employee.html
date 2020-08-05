@@ -28,19 +28,20 @@
         <nav id="nav">
             <ul>
                 <li class="current"><a th:href="@{home}">Home</a></li>
-                <li><a sec:authorize="isAuthenticated()" th:href="@{register}"> Register </a></li>
-                <li>
-                    <a sec:authorize="!isAuthenticated()" class="nav-link" th:href="@{/login}">Login</a>
-                    <a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/logout}">Logout</a>
-                </li>
-                <li class="current"><a th:href="@{employee}"> [[${employee.firstName}]] </a></li>
+
+                <li sec:authorize="isAuthenticated()" ><a class="nav-link" th:href="@{/employee}"> Profile </a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{listemployees}"> View Employees </a></li>
+                <li sec:authorize="!isAuthenticated()"><a class="nav-link" th:href="@{/login}">Login</a></li>
+                <li sec:authorize="hasRole('ADMIN')"> <a class="nav-link" th:href="@{register}"> Add New Employee </a></li>
+                <li sec:authorize="hasRole('ADMIN')"> <a class="nav-link"  th:href="@{departmentform}"> Add New DPT </a></li>
+                <li sec:authorize="isAuthenticated()"><a class="nav-link" th:href="@{/logout}">Logout</a>  </li>
+
             </ul>
         </nav>
 
     </header>
 
     <!-- Section -->
-
     <section id="one" class="main alt">
         <header class="accent1">
             <h3> Welcome [[${employee.lastName}]] !! </h3>
@@ -62,9 +63,7 @@
             <form th:action="@{/logout}" method="post">
                 <input type="submit" value="Logout"/>
 
-
                 <a th:href="@{/update/{id} (id=${employee.id})}" class="button"> Update </a>
-
 
             </form>
 
@@ -81,7 +80,7 @@
                 </div>
 
             </div>
-        </div>
+
     </section>
 
     <div th:replace="base :: footernote"> </div>
