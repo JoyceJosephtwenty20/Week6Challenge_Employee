@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th=”www.thymeleaf.org”>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+
+onsubmit = "return validate();
+<span id="firstName-error-message"> </span>
+
+<script>
+    function validate() {
+
+        var formIsOkay = true;
+        // find the first Name value, then repeat for other fields
+
+        var firstName = document.getElementById("firstName").value;
+        // store error message in variables
+        var firstNameError = document.getElementById("firstName-error-message");
+
+        // begin the validation
+        // check fi the first name field is empty
+        if (!firstName){
+            firstNameError.innerHTML = "Please enter your first name";
+            formIsOkay = false;
+        } else if (firstName.replace(/\s/g, '').length === 0) {
+            firstNameError.innerHTML = "Only whitespace detected";
+            formIsOkay = false;
+        }
+        return formIsOkay;
+    }
+</script>
+
+</body>
+</html>

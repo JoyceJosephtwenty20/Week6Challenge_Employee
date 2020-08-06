@@ -10,6 +10,7 @@
 <h2> Employee Name : [[${employee.firstName}]] [[${employee.lastName}]] </h2>
 <h3> Contact Info:  Phone #: [[${employee.phoneNumber}]], e-Mail: [[${employee.email}]] <br/> </h3>
 
+<a th:href="@{/disableuser/{id} (id=${employee.id})}"> Disable </a>
 
 
 </body>

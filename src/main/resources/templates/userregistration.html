@@ -95,9 +95,10 @@
         <span th:if="${#fields.hasErrors('password')}"
               th:errors="*{password}"> </span>
 
+
                             Department
-                            <select name="demo-category" id="demo-category">
-                                <option th:each="dept : ${departments}"> [[${dept.name}]]</option>
+                            <select th:field="*{department}" name="demo-category" id="demo-category" >
+                                <option th:each="dept : ${departments}" th:value="${dept.id}"> [[${dept.name}]]</option>
                             </select>
                         </strong></mark>
                         <br/>

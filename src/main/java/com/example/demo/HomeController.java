@@ -121,4 +121,16 @@ public class HomeController {
         return "userregistration";
     }
 
+    @RequestMapping("/disableuser/{id}")
+    public String disableEnable(@PathVariable("id") long id, Model model){
+        Employee employee = employeeRepository.findById(id).get();
+        employee.setEnabled(false);
+        employeeRepository.save(employee);
+        return "redirect:/";
+    }
+
+
+
 }
+
+

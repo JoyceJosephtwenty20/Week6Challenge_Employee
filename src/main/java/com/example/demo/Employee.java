@@ -46,6 +46,8 @@ public class Employee {
     @Column(name = "enabled")
     private boolean enabled;
 
+    private String headshot;
+
     @ManyToOne
     private Department department;
 
@@ -141,5 +143,14 @@ public class Employee {
 
     public void setDepartment(Department department) {
         this.department = department;
+    }
+
+
+    public String getHeadshot() {
+        return headshot;
+    }
+
+    public void setHeadshot(String headshot) {
+        this.headshot = headshot;
     }
 }
